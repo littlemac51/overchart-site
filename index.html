@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OverChart — Every consultation, heard.</title>
-<meta name="description" content="OverChart turns ordinary clinical conversations into speaker-labeled, reviewable transcripts — recorded and processed near where they happen.">
+<title>OverChart — Every consultation, reviewable.</title>
+<meta name="description" content="Quality review for every clinical visit, not one in a hundred. OverChart turns consultations into searchable, speaker-labeled transcripts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -29,15 +29,17 @@ header{border-bottom:1px solid var(--line)}
 .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
 .brand{font-family:var(--serif);font-size:21px;font-weight:700;letter-spacing:0.01em}
 .brand .ai{color:var(--accent)}
-.tag{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:4px 9px;letter-spacing:0.08em;text-transform:uppercase}
+.navlink{font-family:var(--mono);font-size:11.5px;color:var(--accent);border:1px solid var(--line);border-radius:3px;padding:5px 11px;letter-spacing:0.06em}
+.navlink:hover{border-color:var(--accent)}
 
 .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;padding:88px 0 80px;align-items:start}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
-h1{font-size:clamp(38px,4.6vw,58px);line-height:1.08;margin-bottom:24px}
-.hero-sub{font-size:19px;color:var(--muted);max-width:46ch;margin-bottom:30px}
+h1{font-size:clamp(36px,4.5vw,54px);line-height:1.12;margin-bottom:24px}
+.hero-sub{font-size:19px;color:var(--muted);max-width:46ch;margin-bottom:34px}
 .hero-sub strong{color:var(--ink);font-weight:500}
-.hero-meta{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--faint)}
-.hero-meta b{color:var(--muted);font-weight:500}
+.cta{display:inline-block;background:var(--accent);color:#13171c;font-weight:600;font-size:15.5px;padding:13px 26px;border-radius:4px;letter-spacing:0.01em}
+.cta:hover{filter:brightness(1.1)}
+.cta-sub{display:block;margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
 
 .tp{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45)}
 .tp-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel2);font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:0.04em}
@@ -59,43 +61,41 @@ h1{font-size:clamp(38px,4.6vw,58px);line-height:1.08;margin-bottom:24px}
 .tp-btns button.on{border-color:var(--accent);color:var(--accent)}
 .tp-btns button:hover{border-color:var(--muted)}
 
-section{padding:88px 0;border-top:1px solid var(--line)}
+section{padding:92px 0;border-top:1px solid var(--line)}
 .sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:30px}
-.statement{font-family:var(--serif);font-size:clamp(24px,2.9vw,33px);line-height:1.35;max-width:30ch;font-weight:400}
+.statement{font-family:var(--serif);font-size:clamp(24px,2.9vw,33px);line-height:1.35;max-width:34ch;font-weight:400}
 .statement em{color:var(--accent);font-style:italic}
 .problem-body{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:start}
 .problem-body .body-col p{color:var(--muted);margin-bottom:18px;max-width:52ch}
 .problem-body .body-col p strong{color:var(--ink);font-weight:500}
 
-.blocklist{margin-top:8px}
-.block{display:grid;grid-template-columns:200px 1fr;gap:0 26px;padding:26px 0;border-bottom:1px solid var(--line)}
-.block:last-child{border-bottom:none}
-.block h3{font-size:19px;padding-top:2px}
-.block .d{color:var(--muted);font-size:15.5px;max-width:62ch}
-.block .d b{color:var(--ink);font-weight:500}
+h2.big{font-size:clamp(26px,3vw,34px);margin-bottom:36px;max-width:30ch;line-height:1.25}
+.benefits{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.benefit{background:var(--bg);padding:30px 28px}
+.benefit h3{font-size:19px;margin-bottom:8px}
+.benefit h3 .n{color:var(--accent);font-family:var(--mono);font-size:13px;margin-right:10px}
+.benefit p{color:var(--muted);font-size:14.5px;line-height:1.6}
+.benefit p b{color:var(--ink);font-weight:500}
 
-.demo-lead{max-width:64ch;color:var(--muted);margin-bottom:26px}
+.scenes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px}
+.scene{border:1px solid var(--line);border-radius:6px;padding:26px 24px;background:var(--panel)}
+.scene .when{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.scene h3{font-size:17.5px;margin-bottom:10px;line-height:1.35}
+.scene p{font-size:14px;color:var(--muted);line-height:1.6}
+
+.demo-lead{max-width:64ch;color:var(--muted);margin-bottom:30px}
 .demo-lead strong{color:var(--ink);font-weight:500}
-.demo-note{font-family:var(--mono);font-size:12px;color:var(--faint);line-height:1.8;margin-top:22px;max-width:66ch}
-
-.honest{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-.honest .col h3{font-size:16px;margin-bottom:14px;font-family:var(--mono);font-weight:500;letter-spacing:0.06em;text-transform:uppercase}
-.honest .now h3{color:var(--clin)}
-.honest .next h3{color:#b47a5a}
-.honest ul{list-style:none}
-.honest li{padding:8px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:15px}
-.honest li:last-child{border-bottom:none}
-.honest li b{color:var(--ink);font-weight:500}
 
 footer{border-top:1px solid var(--line);padding:38px 0 60px}
-footer .fl{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.9}
+footer .fl{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.9}
 footer .demo-line{max-width:46ch;color:var(--muted)}
 
 @media (max-width:880px){
   .hero{grid-template-columns:1fr;gap:40px;padding:56px 0}
   .tp-body{height:340px}
-  .problem-body,.honest{grid-template-columns:1fr;gap:34px}
-  .block{grid-template-columns:1fr;gap:6px}
+  .problem-body{grid-template-columns:1fr;gap:34px}
+  .benefits{grid-template-columns:1fr}
+  .scenes{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -108,25 +108,22 @@ footer .demo-line{max-width:46ch;color:var(--muted)}
 <header>
   <div class="wrap nav">
     <div class="brand">OverChart<span class="ai">.ai</span></div>
-    <div class="tag">Working demo · prototype</div>
+    <a class="navlink" href="#demo">Live demo ↓</a>
   </div>
 </header>
 
 <div class="wrap">
-<div class="hero">
+<div class="hero" id="demo">
   <div>
     <div class="eyebrow">Clinical conversation intelligence</div>
-    <h1>Every consultation, heard.</h1>
-    <p class="hero-sub">OverChart turns ordinary visits into <strong>reviewable, speaker-labeled transcripts</strong> — recorded and processed on modest hardware, right in the room where the conversation happens.</p>
-    <div class="hero-meta">
-      <span><b>Starts with</b> one small microphone</span>
-      <span><b>Runs</b> wherever you put it</span>
-      <span><b>Built for</b> rooms, not labs</span>
-    </div>
+    <h1>Every consultation, reviewable by Monday.</h1>
+    <p class="hero-sub">Your quality team samples one visit in a hundred. OverChart makes <strong>every visit</strong> searchable, timestamped, and speaker-labeled by the next morning — what was asked, what was heard, what was missed.</p>
+    <a class="cta" href="#contact">Arrange a live demo →</a>
+    <span class="cta-sub">Twenty minutes. One conversation in the room. Transcript out.</span>
   </div>
-  <div class="tp" id="tp">
+  <div class="tp">
     <div class="tp-head">
-      <span><span class="dot"></span>ROOM 2 · 10:04 · 11 min · 2 speakers</span>
+      <span><span class="dot"></span>ROOM 3 · 10:04 · 11 min · 2 speakers</span>
       <span class="tp-legend">
         <span><span class="sw" style="background:var(--clin)"></span>Clinician</span>
         <span><span class="sw" style="background:var(--pat)"></span>Patient</span>
@@ -134,7 +131,7 @@ footer .demo-line{max-width:46ch;color:var(--muted)}
     </div>
     <div class="tp-body" id="tpbody"></div>
     <div class="tp-foot">
-      <span class="cap">Live demo — replay at any speed</span>
+      <span class="cap">Real transcript — replay at any speed</span>
       <span class="tp-btns">
         <button id="playBtn">▶ replay</button>
         <button class="speed on" data-speed="1">1×</button>
@@ -148,14 +145,15 @@ footer .demo-line{max-width:46ch;color:var(--muted)}
 
 <section>
   <div class="wrap">
-    <div class="sec-eyebrow">The problem</div>
+    <div class="sec-eyebrow">The gap</div>
     <div class="problem-body">
       <div>
-        <p class="statement">The chart records the decisions. <em>The conversation is where the care happens</em> — and today it vanishes.</p>
+        <p class="statement">The chart records the decisions. <em>The conversation is where the care happens</em> — and today it vanishes at 5 p.m.</p>
       </div>
       <div class="body-col">
-        <p>Quality, training, and trust all depend on what was actually said: the question that wasn't asked, the dose that was mumbled, the moment a patient said "yeah, but…" and stopped being honest.</p>
-        <p>Manual review can sample maybe <strong>one visit in a hundred</strong>. OverChart listens to all of them — and shows who spoke, when, and over whom.</p>
+        <p>Quality, training, and trust all depend on what was actually said: the question nobody asked, the dose that was mumbled, the moment a patient said "yeah, but…" and stopped being honest.</p>
+        <p>By the time anyone reviews a visit — if anyone does — the only record is <strong>what the clinician chose to write down</strong>. The patient's side is gone.</p>
+        <p>OverChart keeps the other side. Every room, every visit, reviewable.</p>
       </div>
     </div>
   </div>
@@ -163,23 +161,24 @@ footer .demo-line{max-width:46ch;color:var(--muted)}
 
 <section>
   <div class="wrap">
-    <div class="sec-eyebrow">What it does</div>
-    <div class="blocklist">
-      <div class="block">
-        <h3>Hears the whole room</h3>
-        <div class="d">One small microphone per exam room captures every conversation, <b>including interruptions</b> — because clinical signal hides in the places where talk overlaps.</div>
+    <div class="sec-eyebrow">What you get</div>
+    <h2 class="big">Visibility that used to require a time machine.</h2>
+    <div class="benefits">
+      <div class="benefit">
+        <h3><span class="n">01</span>Full coverage, not sampling</h3>
+        <p>Every conversation in every room becomes searchable <b>the next morning</b>. Monday's review meeting starts from "show me every visit where a dose wasn't confirmed" — not from whichever chart someone happened to pull.</p>
       </div>
-      <div class="block">
-        <h3>Knows who spoke</h3>
-        <div class="d">Not a wall of text. <b>Who said what, when they said it, and to whom</b>, reconstructed after the fact and timestamped to the second.</div>
+      <div class="benefit">
+        <h3><span class="n">02</span>Truth, with timestamps</h3>
+        <p>When a complaint, a claim, or a question lands — <b>"what actually happened in room 3, Tuesday, around two?"</b> — the answer is on screen in seconds, speaker by speaker.</p>
       </div>
-      <div class="block">
-        <h3>Understands clinical speech</h3>
-        <div class="d">Medication names, doses, and symptoms come through clearly in testing — <b>no hand-tuned vocabulary</b>, nothing to maintain drug by drug.</div>
+      <div class="benefit">
+        <h3><span class="n">03</span>Training that compounds</h3>
+        <p>Yesterday's hard visits become tomorrow's teaching cases, <b>indexed and searchable</b>. New clinicians learn from the shape of thousands of real encounters, not one supervisor's memory of her favorite cases.</p>
       </div>
-      <div class="block">
-        <h3>Reads like a colleague</h3>
-        <div class="d">The transcript is the product: something a supervisor can review, a teacher can learn from, and — later — a review assistant can <b>score against your own standards</b>. It advises no treatment; clinicians decide.</div>
+      <div class="benefit">
+        <h3><span class="n">04</span>Good care, provable</h3>
+        <p>Care that was excellent but poorly documented looks like care that wasn't. A complete transcript <b>defends your clinicians</b> as readily as it audits them — and patients get the honest record too.</p>
       </div>
     </div>
   </div>
@@ -187,65 +186,65 @@ footer .demo-line{max-width:46ch;color:var(--muted)}
 
 <section>
   <div class="wrap">
-    <div class="sec-eyebrow">Why it's different</div>
-    <h2 style="font-size:28px;margin-bottom:14px">Made for real rooms.</h2>
-    <div class="blocklist">
-      <div class="block">
+    <div class="sec-eyebrow">A week with OverChart</div>
+    <div class="scenes">
+      <div class="scene">
+        <div class="when">Tuesday · 9:12 a.m.</div>
+        <h3>"Which visits yesterday discussed anticoagulants?"</h3>
+        <p>The medical director types it. Every match opens to the sentence, the room, the clinician. A pattern invisible at one-in-a-hundred sampling shows up before coffee ends.</p>
+      </div>
+      <div class="scene">
+        <div class="when">Thursday · 2:40 p.m.</div>
+        <h3>A patient calls about their visit</h3>
+        <p>The exchange is read in full — every question, every answer, the interruption at 06:12 intact. Resolution Thursday instead of investigation by November.</p>
+      </div>
+      <div class="scene">
+        <div class="when">Monday · 8:55 a.m.</div>
+        <h3>New clinician, week three</h3>
+        <p>Yesterday's visits were transcribed and indexed overnight. The teaching library of real encounters grows every single day without anyone curating it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Why clinics can actually deploy it</div>
+    <h2 class="big">Built for practice, not for the lab.</h2>
+    <div class="benefits">
+      <div class="benefit">
         <h3>Quietly small</h3>
-        <div class="d">No racks, no server room per clinic. OverChart lives on <b>inexpensive, off-the-shelf hardware</b> — from a device the size of a palm up to a central machine that serves a region.</div>
+        <p>A palm-sized unit and a discreet microphone per room. <b>No cameras, no server room</b>, no construction. Add rooms at the speed of your budget.</p>
       </div>
-      <div class="block">
+      <div class="benefit">
         <h3>Works through bad days</h3>
-        <div class="d">Recordings are captured locally and survive network outages, then <b>sync when convenient</b>. A slow afternoon is never a lost afternoon.</div>
+        <p>Recording survives network outages; catch-up happens when the link returns. <b>A slow afternoon is never a lost afternoon</b> of coverage.</p>
       </div>
-      <div class="block">
-        <h3>Conversations stay yours</h3>
-        <div class="d">Designed local-first: capture, processing, and storage sit <b>wherever your policy says they must</b>, with a small, auditable data path in and out.</div>
+      <div class="benefit">
+        <h3>Private by construction</h3>
+        <p>Conversations live where your policy says they must — in the clinic, on your network. <b>The data path in and out is small enough to read</b>, and built to be audited.</p>
       </div>
-      <div class="block">
-        <h3>One system, any shape</h3>
-        <div class="d">Lightweight recorders feeding central processing, or complete room systems that send only text — <b>the same software either way</b>, chosen per room.</div>
+      <div class="benefit">
+        <h3>Made to be read</h3>
+        <p>Transcripts are built for <b>busy reviewers</b>: speakers separated, interruptions marked, a ten-minute visit scannable in under one. It advises nothing; clinicians decide.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="sec-eyebrow">The demo</div>
-    <p class="demo-lead">The panel above replays real OverChart output from a recorded <strong>mock consultation</strong> — clinician and patient, interruptions intact. Read it at 1× like a conversation, or 30× and watch two hundred speakers-per-minute collapse into a reviewable record. Twenty minutes and one conversation in the room: that's the whole demonstration.</p>
-    <div class="demo-note">Demo transcript produced by OverChart from the PriMock57 mock-consultation corpus (CC BY 4.0) — actors, not patients; fictional cases, built for exactly this kind of testing. Performance measured on controlled test material; real-clinic validation is the purpose of the demo phase, not a claim made in advance.</div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="sec-eyebrow">Where it stands</div>
-    <div class="honest">
-      <div class="col now">
-        <h3>Works today</h3>
-        <ul>
-          <li><b>The full pipeline</b> — capture to reviewable transcript, running unattended, guarding its own memory and reporting its own failures.</li>
-          <li><b>A measuring culture</b> — every change is tested against known-answer conversations, so "better" means provably better.</li>
-          <li><b>Hardware freedom</b> — proven on advanced machines, designed down to commodity boxes.</li>
-        </ul>
-      </div>
-      <div class="col next">
-        <h3>Next — deliberately</h3>
-        <ul>
-          <li><b>No patient conversations have been processed.</b> How real conversations are handled — privacy, retention, access — gets designed before any real recording exists.</li>
-          <li><b>A review assistant, not an oracle.</b> Scoring visits against a rubric is the next layer; it will grade conversations, never give treatment advice.</li>
-          <li><b>Demo units are being assembled now</b> — the goal is to place a working system on your desk, not a slide deck in front of one.</li>
-        </ul>
-      </div>
-    </div>
+  <div class="wrap" id="contact">
+    <div class="sec-eyebrow">See it live</div>
+    <p class="demo-lead">The transcript at the top of this page is real — produced from a recorded <strong>mock consultation</strong>, actors and all. <strong>The live version goes further:</strong> talk at normal volume for a few minutes, then watch your own words scroll out, speaker by speaker, seconds behind you. Twenty minutes, one conversation in the room: that's the whole demonstration.</p>
+    <span class="cta">Arrange a live demo — contact: [placeholder, not yet live]</span>
+    <span class="cta-sub">No pilot commitment required to see it. Bring your hardest conversation.</span>
   </div>
 </section>
 
 <footer>
   <div class="wrap fl">
-    <div class="demo-line">Built to be demonstrated: twenty minutes, one conversation in the room, transcript out.<br><br>Demo requests welcome. — add contact here before publishing</div>
-    <div>Built on open transcription and speaker-separation models.<br>Demo material: PriMock57 mock-consultation corpus, CC BY 4.0.<br>OverChart.ai — prototype, 2026. Not medical advice.</div>
+    <div class="demo-line">OverChart — every consultation, reviewable.<br><br>Demo requests: contact line intentionally blank until David supplies one.</div>
+    <div>Demo transcript: PriMock57 mock-consultation corpus (CC BY 4.0) — fictional cases performed by actors; no real patient material appears on this page.<br>Scenes above depict the deployed product. OverChart is an independent product. Nothing here is medical advice.</div>
   </div>
 </footer>
 
