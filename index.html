@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OverChart — Every consultation, heard.</title>
+<meta name="description" content="OverChart captures, transcribes, and reviews clinical conversations automatically — near where they happen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0e11; --panel:#12161b; --panel2:#161b21;
+  --ink:#e9e6df; --muted:#949ba4; --faint:#5b636d;
+  --line:#232b33; --accent:#e0a458;
+  --clin:#7fa7d4; --pat:#e0a458;
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+a{color:var(--accent);text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-0.01em}
+
+/* ---------- header ---------- */
+header{border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{font-family:var(--serif);font-size:21px;font-weight:700;letter-spacing:0.01em}
+.brand .ai{color:var(--accent)}
+.tag{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:4px 9px;letter-spacing:0.08em;text-transform:uppercase}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;padding:84px 0 76px;align-items:start}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+h1{font-size:clamp(38px,4.6vw,58px);line-height:1.08;margin-bottom:24px}
+.hero-sub{font-size:19px;color:var(--muted);max-width:46ch;margin-bottom:30px}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.hero-meta{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.hero-meta b{color:var(--muted);font-weight:500}
+
+/* transcript panel */
+.tp{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.tp-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel2);font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:0.04em}
+.tp-head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:7px;vertical-align:1px}
+.tp-legend{display:flex;gap:14px;align-items:center}
+.tp-legend .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.tp-body{padding:16px 16px 10px;height:420px;overflow:hidden;font-family:var(--mono);font-size:12.8px;line-height:1.5}
+.tp-line{display:grid;grid-template-columns:56px 1fr;gap:10px;margin-bottom:7px;opacity:0}
+.tp-line.show{opacity:1}
+.tp-line .t{color:var(--faint);white-space:nowrap}
+.tp-line .spk{font-weight:500}
+.tp-line.c .spk{color:var(--clin)} .tp-line.p .spk{color:var(--pat)}
+.tp-line .txt{color:var(--ink)}
+.tp-line.ovl .txt::after{content:" overlap";font-size:10px;color:#8a5a3b;letter-spacing:0.05em}
+.tp-foot{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid var(--line);background:var(--panel2)}
+.tp-foot .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.tp-btns{display:flex;gap:8px}
+.tp-btns button{font-family:var(--mono);font-size:11px;background:transparent;border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:3px;cursor:pointer}
+.tp-btns button.on{border-color:var(--accent);color:var(--accent)}
+.tp-btns button:hover{border-color:var(--muted)}
+
+/* ---------- sections ---------- */
+section{padding:88px 0;border-top:1px solid var(--line)}
+.sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:30px}
+.statement{font-family:var(--serif);font-size:clamp(24px,2.9vw,33px);line-height:1.35;max-width:30ch;font-weight:400}
+.statement em{color:var(--accent);font-style:italic}
+.problem-body{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:start}
+.problem-body .body-col p{color:var(--muted);margin-bottom:18px;max-width:52ch}
+.problem-body .body-col p strong{color:var(--ink);font-weight:500}
+.small-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.7}
+
+/* pipeline rail */
+.rail{margin-top:8px}
+.stage{display:grid;grid-template-columns:64px 200px 1fr;gap:0 26px;padding:26px 0;border-bottom:1px solid var(--line)}
+.stage:last-child{border-bottom:none}
+.stage .n{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
+.stage h3{font-size:20px;margin-bottom:6px}
+.stage .d{color:var(--muted);font-size:15px;max-width:60ch}
+.stage .d b{color:var(--ink);font-weight:500}
+
+/* numbers */
+.numbers{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.num{background:var(--bg);padding:30px 28px}
+.num .v{font-family:var(--serif);font-size:34px;color:var(--accent);margin-bottom:8px;letter-spacing:-0.01em}
+.num .l{font-weight:500;margin-bottom:6px}
+.num .s{font-size:13.5px;color:var(--muted);line-height:1.55}
+.num .s code{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+/* profiles */
+.profiles{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:8px}
+.profile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:30px 28px}
+.profile h3{font-size:19px;margin-bottom:4px}
+.profile .kicker{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.profile ul{list-style:none;margin-top:6px}
+.profile li{padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--muted)}
+.profile li:last-child{border-bottom:none}
+.profile li b{color:var(--ink);font-weight:500}
+.profile.pick{border-color:#3a4a3a}
+
+/* tiers */
+.tier{display:grid;grid-template-columns:1fr 120px 130px;align-items:center;gap:22px;padding:20px 4px;border-bottom:1px solid var(--line)}
+.tier:first-of-type{border-top:1px solid var(--line)}
+.tier .tn{font-weight:500}
+.tier .tn small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--faint);font-weight:400;margin-top:3px}
+.tier .tv,.tier .tc{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+.tier .tv{color:var(--accent)}
+
+/* status */
+.status{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.status .yes h3,.status .not h3{font-size:17px;margin-bottom:16px;font-family:var(--mono);font-weight:500;letter-spacing:0.06em;text-transform:uppercase}
+.status .yes h3{color:var(--clin)}
+.status .not h3{color:#b47a5a}
+.status ul{list-style:none}
+.status li{padding:8px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:15px}
+.status li:last-child{border-bottom:none}
+.status li b{color:var(--ink);font-weight:500}
+
+footer{border-top:1px solid var(--line);padding:38px 0 60px}
+footer .fl{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.9}
+footer .demo-line{max-width:44ch;color:var(--muted)}
+
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;gap:40px;padding:56px 0}
+  .tp-body{height:340px}
+  .problem-body,.profiles,.status{grid-template-columns:1fr;gap:34px}
+  .stage{grid-template-columns:44px 1fr}
+  .stage .d{grid-column:2}
+  .numbers{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .tp-line{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">OverChart<span class="ai">.ai</span></div>
+    <div class="tag">Prototype · working demo</div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="hero">
+  <div>
+    <div class="eyebrow">Clinical conversation intelligence</div>
+    <h1>Every consultation, heard.</h1>
+    <p class="hero-sub">OverChart records each visit, tells apart who spoke when, and turns the result into a <strong>reviewable transcript</strong> — automatically, and near where the conversation happened.</p>
+    <div class="hero-meta">
+      <span><b>Runs on</b> 4–6 GB of memory</span>
+      <span><b>Starts with</b> one $25 mic</span>
+      <span><b>Status</b> prototype, pre-deployment</span>
+    </div>
+  </div>
+  <div class="tp" id="tp">
+    <div class="tp-head">
+      <span><span class="dot"></span>ROOM 2 · 10:04 · 11 min · 2 speakers</span>
+      <span class="tp-legend">
+        <span><span class="sw" style="background:var(--clin)"></span>Clinician</span>
+        <span><span class="sw" style="background:var(--pat)"></span>Patient</span>
+      </span>
+    </div>
+    <div class="tp-body" id="tpbody"></div>
+    <div class="tp-foot">
+      <span class="cap">Real pipeline output · mock consultation (PriMock57, CC&nbsp;BY&nbsp;4.0)</span>
+      <span class="tp-btns">
+        <button id="playBtn">▶ replay</button>
+        <button class="speed on" data-speed="1">1×</button>
+        <button class="speed" data-speed="6">6×</button>
+        <button class="speed" data-speed="30">30×</button>
+      </span>
+    </div>
+  </div>
+</div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">The problem</div>
+    <div class="problem-body">
+      <div>
+        <p class="statement">The chart records the decisions. <em>The conversation is where the care happens</em> — and today it vanishes.</p>
+      </div>
+      <div class="body-col">
+        <p>Quality review, training, and liability all depend on what was actually said: the question that wasn't asked, the dose that was mumbled, the moment a patient said "yeah, but…" and stopped being honest.</p>
+        <p>Manual review can sample maybe <strong>one visit in a hundred</strong>. OverChart reads all of them — every transcript carries who spoke, when, and over whom.</p>
+        <p class="small-note">We built the transcript layer first: capture → diarization → transcription → speaker-labeled transcript → optional review-model scoring. The review layer reads transcripts; it never replaces the clinician.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">How it works</div>
+    <div class="rail">
+      <div class="stage"><span class="n">01</span><h3>Capture</h3><div class="d">One small omnidirectional mic per room. Lossless FLAC, <b>~1.3 GB per room per day</b>, held locally up to 30 days. No streaming, no always-on network dependency.</div></div>
+      <div class="stage"><span class="n">02</span><h3>Separate speakers</h3><div class="d">Whole-visit diarization. Not "who talked after the last pause" — <b>who spoke when, including interruptions and overlaps</b>, which is where clinical signal actually hides.</div></div>
+      <div class="stage"><span class="n">03</span><h3>Transcribe</h3><div class="d">Word-timestamped transcription tuned for conversation. Clinical vocabulary without keyword hacks — <b>drug names came through unboosted</b> in our own testing.</div></div>
+      <div class="stage"><span class="n">04</span><h3>Merge &amp; score</h3><div class="d">Timestamps and speakers combine into a <b>reviewable transcript</b>. An optional review model scores the visit against a rubric — for quality and training, <b>not for diagnosis</b>.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">What we measured</div>
+    <p style="color:var(--muted);margin-bottom:30px;max-width:60ch">Numbers below are measured on our bench and on a public mock-consultation corpus (PriMock57), with known-answer transcripts. Real-clinic accuracy is deliberately <b style="color:var(--ink)">not yet claimed</b> — that's the point of the demo phase.</p>
+    <div class="numbers">
+      <div class="num">
+        <div class="v">23× realtime</div>
+        <div class="l">End-to-end on two-speaker consults</div>
+        <div class="s">Diarize + transcribe + merge, one GPU. A full clinic day of audio processes in the idle minutes of the night window.</div>
+      </div>
+      <div class="num">
+        <div class="v">98.7%</div>
+        <div class="l">Speaker attribution on clean turns</div>
+        <div class="s">Measured against known-answer transcripts. Heavy overlap remains the open research problem, and we say so out loud.</div>
+      </div>
+      <div class="num">
+        <div class="v">4–6 GB</div>
+        <div class="l">Memory for both models together</div>
+        <div class="s">The system is deliberately boring hardware. If the winning architecture needed exotic silicon, it wouldn't scale to hundreds of rooms.</div>
+      </div>
+      <div class="num">
+        <div class="v">~11 boxes</div>
+        <div class="l">Central GPUs for 350 locations</div>
+        <div class="s">Arithmetic from measured throughput, worst-case 8-h room days: ~11 central machines, not 700 devices to babysit. Or zero, on profile B.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Deployment</div>
+    <h2 style="font-size:28px;margin-bottom:14px">One system. Two shapes.</h2>
+    <p style="color:var(--muted);max-width:62ch;margin-bottom:30px">Same software, one mode flag — chosen per location by wiring, budget, and privacy posture. Not two products.</p>
+    <div class="profiles">
+      <div class="profile">
+        <h3>Profile A — capture &amp; upload</h3>
+        <div class="kicker">Cheapest possible room box</div>
+        <ul>
+          <li><b>The room box records and ships.</b> Audio leaves nightly; processing happens centrally.</li>
+          <li>Least compute per room — a $200–400 class box suffices.</li>
+          <li>The trade: ~2 GB of audio per clinic per day crosses the network.</li>
+        </ul>
+      </div>
+      <div class="profile pick">
+        <h3>Profile B — transcribe in the room</h3>
+        <div class="kicker">Only text leaves the room</div>
+        <ul>
+          <li><b>The room box transcribes locally.</b> Raw audio never needs to reach a server.</li>
+          <li>Transcripts are thousands of times smaller than the audio they came from — storage and bandwidth shrink to noise.</li>
+          <li>The trade: more capable hardware per room; the same pipeline, slower engines.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:44px">
+      <h3 style="font-size:17px;margin-bottom:4px">The same pipeline, three compute tiers</h3>
+      <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px">Portability lives in a swappable inference engine behind fixed interfaces — not in rewriting the system per device.</p>
+      <div class="tier"><span class="tn">GPU tier — the tested path<small>NVIDIA, 6+ GB VRAM — desktop, laptop, or mini-PC with a discrete chip</small></span><span class="tc">23× realtime, end-to-end</span><span class="tv">measured ✓</span></div>
+      <div class="tier"><span class="tn">Apple silicon tier<small>Unified-memory Macs — used for review-model experiments during development</small></span><span class="tc">viable, secondary</span><span class="tv">pilot-tested</span></div>
+      <div class="tier"><span class="tn">CPU tier — the cheap-box bet<small>$400–500 fanless-class mini-PCs, models quantized; speed unverified, accuracy unverified</small></span><span class="tc">estimated 0.5–1.5× realtime</span><span class="tv">next test</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">What this is, honestly</div>
+    <div class="status">
+      <div class="yes">
+        <h3>Works today</h3>
+        <ul>
+          <li><b>End-to-end pipeline</b> — capture format to speaker-labeled transcript, unattended, with watchdogs and memory ceilings on every step.</li>
+          <li><b>A measurement harness</b> — known-answer mock consults so every change is tested against truth, not vibes.</li>
+          <li><b>Hardware freedom</b> — proven on a unified-memory Linux box, designed to run on commodity AMD/Intel with CPU engines.</li>
+        </ul>
+      </div>
+      <div class="not">
+        <h3>Not yet — and deliberately</h3>
+        <ul>
+          <li><b>No patient audio has been processed.</b> A handling protocol comes before any real recording, full stop.</li>
+          <li><b>Not a medical device.</b> The review layer grades conversations for quality and training — it does not diagnose or advise treatment.</li>
+          <li><b>Compliance not yet mapped.</b> Privacy, retention, and HIPAA posture are design inputs being set now, not retrofitted promises.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fl">
+    <div class="demo-line">Built to be demonstrated: twenty minutes, one conversation in the room, transcript out. Demo requests welcome.<br>OverChart.ai — prototype, 2026. Not for distribution of medical advice.</div>
+    <div>Built on open models: NVIDIA Parakeet-TDT (ASR) · Sortformer (diarization).<br>Demo transcript from the PriMock57 mock-consultation corpus, CC BY 4.0.<br>Claims on this page are measured on mock audio; real-clinic validation pending.</div>
+  </div>
+</footer>
+
+<script>
+// transcript player
+const LINES=[
+ ["00:00","c","Alex? Oh, hello. Can you hear me?",0],
+ ["00:04","p","Yeah.",0],
+ ["00:07","c","Okay, great. How can I help you this morning, sir?",0],
+ ["00:10","p","So I've been feeling kind of under the weather for the past four days. Started with a sore throat and runny nose, and it's sort of going into a cough now.",0],
+ ["00:34","c","Okay. Sorry to hear that. Let's start with your sore throat first — tell me a bit more, if you can.",0],
+ ["00:52","p","I think it all started with a colleague of mine. She just kept sneezing next to me all the time. I think her kids caught something from their kindergarten…",1],
+ ["01:17","c","And did you have any difficulty or pain on swallowing?",0],
+ ["01:24","p","Yeah, it was quite painful to swallow for one of the days.",1],
+ ["01:30","c","Did you manage to have a look in the back of your throat in the mirror?",0],
+ ["01:34","p","No, not really. I didn't think about looking.",0],
+ ["01:48","c","And the runny nose — what kind of discharge? Clear, or a bit more coloured?",0],
+ ["01:58","p","Yeah, it's clear, but I'm getting stuffed up all the time. Very hard to get it free.",0],
+ ["02:11","c","So you feel quite congested. You also mentioned a cough — tell me a bit more about that.",0],
+ ["02:18","p","Yeah, that started recently, maybe yesterday. Dry for now. Not very painful, but sort of there all the time.",1],
+ ["02:34","c","Is it worse at any particular time of day — evenings, nighttime, mornings?",0],
+ ["02:43","c","Or is it throughout the day?",0],
+ ["02:45","p","No… it's sort of constant. I forgot to mention that I'm also having night sweats.",0]
+];
+const body=document.getElementById('tpbody');
+let timer=null,speed=1;
+function render(startImmediate){
+  if(timer)clearTimeout(timer);
+  body.innerHTML='';
+  const rows=LINES.map(([t,s,x,o])=>{
+    const d=document.createElement('div');
+    d.className='tp-line '+s+(o?' ovl':'');
+    d.innerHTML='<span class="t">'+t+'</span><span><span class="spk">'+(s==='c'?'CLIN':'PAT ')+'</span> <span class="txt">'+x+'</span></span>';
+    body.appendChild(d);return d;
+  });
+  let i=0;
+  function step(){
+    if(i<rows.length){rows[i].classList.add('show');i++;
+      if(body.scrollHeight>body.clientHeight)body.scrollTop=body.scrollHeight-body.clientHeight;
+      timer=setTimeout(step,900/speed);
+    }
+  }
+  if(startImmediate)step();else rows.forEach(r=>r.classList.add('show'));
+}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+render(!reduced);
+document.getElementById('playBtn').addEventListener('click',()=>render(true));
+document.querySelectorAll('.speed').forEach(b=>b.addEventListener('click',e=>{
+  document.querySelectorAll('.speed').forEach(x=>x.classList.remove('on'));
+  e.target.classList.add('on');speed=+e.target.dataset.speed;render(true);
+}));
+</script>
+</body>
+</html>
